@@ -1,0 +1,63 @@
+<div class="container">
+  <h1>Task Manager</h1>
+  <div class="row">
+    <div class="col-xs-12">
+      <ul class="nav nav-pills">
+        <li>
+          <a [routerLink]="'/add'">Add Task</a>
+        </li>
+
+        <li>
+          <a [routerLink]="'/view'" style="color:black;">View Task</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+  <div class="form-horizontal">
+    <div class="form-group">
+      <label for="txtTask" class="col-xs-2 control-label">Task:</label>
+      <div class="col-xs-4">
+        <input type="text" id="txtTask" name="txtTask" [(ngModel)]="Task" required class="form-control">
+        <div [hidden]="!showTaskReqError" class="alert-danger"> Task Name is required! </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="ranPriority" class="col-xs-2 control-label">Priority:</label>
+      <div class="col-xs-4">
+        <input type="range" class="slider" id="ranPriority" [(ngModel)]="Priority" required min="0" max="30" step="5" value="0">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="txtParentTask" class="col-xs-2 control-label">Parent Task:</label>
+      <div class="col-xs-4">
+        <!-- <input type="text" id="txtParentTask" name="txtParentTask" [(ngModel)]="ParentTask" class="form-control"> -->
+        <select id="txtParentTask" name="txtParentTask" [(ngModel)]="ParentTask" class="form-control">
+          <option *ngFor="let c of ParentTaskList" [ngValue]="c">{{c}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="txtSDate" class="col-xs-2 control-label">Start Date:</label>
+      <div class="col-xs-4">
+        <input type="date" id="txtSDate" name="txtSDate" [min]="minDate" [(ngModel)]="StartDate" required class="form-control">
+        <div [hidden]="!showStDateReqError" class="alert-danger"> Start Date is required! </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="txtEDate" class="col-xs-2 control-label">End Date:</label>
+      <div class="col-xs-4">
+        <input type="date" id="txtEDate" name="txtEDate" [min]="minDate" [(ngModel)]="EndDate" required class="form-control">
+        <div [hidden]="!showEndDateReqError" class="alert-danger"> End Date is required! </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-xs-2 control-label"></label>
+      <div class="col-xs-4">
+        <button class="btn btn-default" (click)='AddTask()'>Add Task</button>
+        <button class="btn btn-default" (click)='ResetTask()' style="margin-left: 5px;">Reset</button>
+      </div>
+    </div>
+  </div>
+</div>

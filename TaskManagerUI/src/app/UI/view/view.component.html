@@ -1,0 +1,85 @@
+<div class="container">
+  <h1>Task Manager</h1>
+  <div class="row">
+    <div class="col-xs-12">
+      <ul class="nav nav-pills">
+        <li>
+          <a [routerLink]="'/add'" style="color:black;">Add Task</a>
+        </li>
+
+        <li>
+          <a [routerLink]="'/view'">View Task</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+
+  <div class="container">
+    <div class="row viewHead">
+      <label class="col-xs-2 control-label">Task:</label>
+      <div class="col-xs-4">
+        <input type="text" [(ngModel)]="Task" (input)="filterItem()" class="form-control">
+      </div>
+      <label class="col-xs-2 control-label">Parent Task:</label>
+      <div class="col-xs-4">
+        <input type="text" [(ngModel)]="ParentTask" (input)="filterItem()" class="form-control">
+      </div>
+    </div>
+
+    <div class="row viewHead">
+      <label class="col-xs-2 control-label">Priority From:</label>
+      <div class="col-xs-4">
+        <input type="text" [(ngModel)]="PriorityFrom" (input)="filterItem()" class="form-control">
+      </div>
+      <label class="col-xs-2 control-label">Priority To:</label>
+      <div class="col-xs-4">
+        <input type="text" [(ngModel)]="PriorityTo" (input)="filterItem()" class="form-control">
+      </div>
+    </div>
+
+    <div class="row viewHead">
+      <label class="col-xs-2 control-label">Start Date:</label>
+      <div class="col-xs-4">
+        <input type="date" [(ngModel)]="StartDate" (input)="filterItem()" class="form-control">
+      </div>
+      <label class="col-xs-2 control-label">End Date:</label>
+      <div class="col-xs-4">
+        <input type="date" [(ngModel)]="EndDate" (input)="filterItem()" class="form-control">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container" style="margin-top: 20px;">
+  <table class="table table-hover">
+    <tr *ngFor="let item of filteredList">
+      <td>
+        <label>Task</label>
+        <br> {{item.Task}}
+      </td>
+      <td>
+        <label>Parent</label>
+        <br> {{item.ParentTask}}
+      </td>
+      <td>
+        <label>Priority</label>
+        <br> {{item.Priority}}
+      </td>
+      <td>
+        <label>Start</label>
+        <br> {{item.StartDate|date:"MM/dd/yyyy"}}
+      </td>
+      <td>
+        <label>End</label>
+        <br> {{item.EndDate|date:"MM/dd/yyyy"}}
+      </td>
+      <td>
+        <input type="button" class="btn btn-default" [disabled]="!item.IsActive" [routerLink]="['/edit']" [queryParams]="{ id: item.TaskID }"
+          value="Edit">
+      </td>
+      <td>
+        <input type="button" class="btn btn-default" [disabled]="!item.IsActive" (click)='EndTask(item.TaskID)' value="End Task">
+      </td>
+    </tr>
+  </table>
+</div>
